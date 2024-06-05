@@ -6,7 +6,7 @@ document.getElementById('tryangan').addEventListener('click', initGame)
 
 document.addEventListener('keydown', handleInput);
 
-const handleInput = () => {
+const initGame = () => {
 
     grid = createEmptyGrid();
     score = 0;
@@ -84,6 +84,29 @@ const drawGrid = () => {
     });
     if (isGameOver()) {
         ShowGameOverMessage();
-        clearInterval(timer)
-    }
+        clearInterval(timer);
+    };
+};
+
+const handleInput = event => {
+    if (isGameOver()) return;
+    let key = event.key;
+
+    if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrorLeft' || key === 'ArrowRight') {
+
+        if (gameStarted) {
+            startTime();
+            gameStarted = true;
+        };
+        let oldGrid = JSON.stringify(grid);
+        moveTiles(key);
+        mergeTile(key);
+        moveTiles(key);
+
+        if (oldGrid !== JSON.stringify(grid)) {
+            addRamdownTile();
+        };
+        drawGrid();
+        updateScore();
+    };
 };
