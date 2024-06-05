@@ -135,3 +135,26 @@ const moveTiles = direction => {
         }
     };
 };
+
+const margeTile = direction => {
+    let isVertical = direction === 'ArrowUp' || direction === 'ArrowDown';
+    let isForward = direction === 'ArrorLeft' || direction === 'ArrowRight';
+
+    for (i = 0; i < 4; i++) {
+        for (let j = isForward ? 3 : 0; isForward ? j > 0 : j < 3; isForward ? j-- : j++) {
+
+            let current = isVertical ? grid[j][i] : grid[i][j];
+            let next = isVertical ? grid[isForward ? j - 1 : j + 1][i] : grid[i][isForward ? j - 1 : j + 1];
+
+            if (current !== 0 && current === next) {
+                let margeTile = current * 2;
+
+                isVertical ? grid[j][i] = margeTile : grid[i][j] = margeTile;
+                isVertical ? grid[isForward ? j - 1 : j + 1][i] = 0 : grid[i][isForward ? j - 1 : j + 1] = 0;
+                score += margeTile;
+                break;
+            };
+        };
+    };
+};
+
