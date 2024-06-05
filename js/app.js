@@ -34,3 +34,9 @@ const pausedGame = () => {
     clearInterval(timer);
     pauseButton.textContent = 'Resume';
 };
+
+const resumeGame = () => {
+    isPaused = false;
+    startTimer();
+    pauseButton.textContent = 'resume';
+}
