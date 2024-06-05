@@ -30,4 +30,7 @@ pauseButton.addEventListener('click', () => {
 
 const pausedGame = () => {
 
+    isPaused = true;
+    clearInterval(timer);
+    pauseButton.textContent = 'Resume';
 };
