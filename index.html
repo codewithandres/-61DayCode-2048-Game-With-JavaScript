@@ -4,42 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 Game With JavaScript | Andres developer</title>
-    <!-- remix icon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <!-- custom css -->
+    <title>2048 Game</title>
     <link rel="stylesheet" href="css/mani.css">
-    <!-- custom js -->
-    <script src="js/app.js" defer></script>
+    <script src="https://kit.fontawesome.com/657de39a82.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
     <div id="game-container">
         <div id="grid-container"></div>
     </div>
 
-    <div class="game-over">
-        <h1>game over</h1>
-        <button class="tryangan" id="tryangan"> Try again</button>
+    <div id="game-over">
+        <h1>Game Over</h1>
+        <button id="tryagain">Try Again</button>
     </div>
-
     <div class="game-info">
-        <h1>2048 Game </h1>
+        <h1>2048 Game</h1>
         <div id="game-message" class="game-message">
-            <time datetime="00:00" id="game-time">Time : 00</time>
-            <div id="game-score">Score: 0</div>
+            <p id="game-time">Time: 00:00</p>
+            <p id="game-score">Score: 0</p>
         </div>
-        <button id="new-game">New game</button>
-        <button id="pause-game">pause</button>
+
+        <button id="new-game">New Game</button>
+        <button id="pause-resume">Pause</button>
         <div class="move">
-            <i class="ri-arrow-left-s-line left"></i>
-            <i class="ri-arrow-up-s-line up"></i>
-            <i class="ri-arrow-down-s-line down"></i>
-            <i class="ri-arrow-right-s-line rigth"></i>
+            <h1>Contorols</h1>
+            <i class="fa-solid fa-arrow-up up"></i>
+            <i class="fa-solid fa-arrow-left-long left"></i>
+            <i class="fa-solid fa-arrow-right-long right"></i>
+            <i class="fa-solid fa-arrow-down-long down"></i>
         </div>
     </div>
-
+    <script src="js/app.js"></script>
 </body>
 
 </html>

@@ -1,123 +1,128 @@
-
 let grid, score, timer, time, gameStarted;
+
+document.getElementById('new-game').addEventListener('click', initGame);
+document.getElementById('tryagain').addEventListener('click', initGame);
 
 document.addEventListener('keydown', handleInput);
 
-const initGame = () => {
-
+function initGame() {
     grid = createEmptyGrid();
     score = 0;
     time = 0;
     timer = 0;
     gameStarted = false;
     updateScore();
-    addRamdownTile();
+    addRandomTile();
+    addRandomTile();
     drawGrid();
     hideGameOverMessage();
 }
-
-const pauseButton = document.getElementById('pause-game');
+let pauseButton = document.getElementById('pause-resume');
 let isPaused = false;
 
-pauseButton.addEventListener('click', () => {
-
-    if (isPaused) resumeGame()
-    else pausedGame();
+pauseButton.addEventListener('click', function () {
+    if (isPaused) {
+        resumeGame();
+    } else {
+        pauseGame();
+    }
 });
 
-const pausedGame = () => {
-
+function pauseGame() {
     isPaused = true;
     clearInterval(timer);
     pauseButton.textContent = 'Resume';
-};
-
-const resumeGame = () => {
-    isPaused = false;
-    startTime();
-    pauseButton.textContent = 'resume';
 }
 
-const startTime = () => {
+function resumeGame() {
+    isPaused = false;
+    startTime();
+    pauseButton.textContent = 'Pause';
+}
+
+// Modified the setInterval function to check if the game is paused
+function startTime() {
     clearInterval(timer);
     timer = setInterval(() => {
-        if (isPaused) {
+        if (!isPaused) {
             time++;
-            document.getElementById('game-time').textContent = `Time ${formatTime(time)}`
-        };
+            document.getElementById('game-time').textContent = 'Time: ' + formatTime(time);
+        }
     }, 1000);
 }
 
-const createEmptyGrid = () => [...Array(4).map(() => Array(4).fill(0))];
+function createEmptyGrid() {
+    return [...Array(4)].map(() => Array(4).fill(0));
+}
 
-const addRamdownTile = () => {
+function addRandomTile() {
     let emptyTiles = [];
-    for (let i = 0; 1 < 4; i++) {
-
-        for (j = 0; j < 4; j++) {
-
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
             if (grid[i][j] === 0) {
                 emptyTiles.push({ i, j });
-            };
-        };
-    };
+            }
+        }
+    }
     if (emptyTiles.length) {
         let { i, j } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
         grid[i][j] = Math.random() > 0.9 ? 4 : 2;
-    };
-};
+    }
+}
 
-const drawGrid = () => {
+function drawGrid() {
     const gridContainer = document.getElementById('grid-container');
     gridContainer.innerHTML = '';
-
-    grid.map((row, i) => {
+    grid.forEach((row, i) => {
         row.forEach((value, j) => {
             let tile = document.createElement('div');
-            tile.className = 'tile' + (value ? `title-${value}` : '');
+            tile.className = 'tile' + (value ? ` tile-${value}` : '');
             tile.textContent = value || '';
             gridContainer.appendChild(tile);
         });
     });
+
     if (isGameOver()) {
-        ShowGameOverMessage();
+        showGameOverMessage();
         clearInterval(timer);
-    };
-};
+    }
+}
 
-const handleInput = event => {
-    if (isGameOver()) return;
-    let key = event.key;
+function handleInput(e) {
+    if (isGameOver()) {
+        return;
+    }
 
-    if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrorLeft' || key === 'ArrowRight') {
-
-        if (gameStarted) {
+    let key = e.key;
+    if (key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight') {
+        if (!gameStarted) {
             startTime();
             gameStarted = true;
-        };
+        }
+
         let oldGrid = JSON.stringify(grid);
         moveTiles(key);
-        mergeTile(key);
-        moveTiles(key);
-
+        mergeTiles(key);
+        moveTiles(key); // To fill in the gaps after merging
         if (oldGrid !== JSON.stringify(grid)) {
-            addRamdownTile();
-        };
+            addRandomTile();
+        }
         drawGrid();
         updateScore();
-    };
-};
 
-const moveTiles = direction => {
+    }
+}
+
+function moveTiles(direction) {
     let isVertical = direction === 'ArrowUp' || direction === 'ArrowDown';
-    let isForward = direction === 'ArrorLeft' || direction === 'ArrowRight';
+    let isForward = direction === 'ArrowRight' || direction === 'ArrowDown';
 
     for (let i = 0; i < 4; i++) {
         let row = [];
         for (let j = 0; j < 4; j++) {
             let cell = isVertical ? grid[j][i] : grid[i][j];
             if (cell) row.push(cell);
-        };
+        }
 
         let missing = 4 - row.length;
         let zeros = Array(missing).fill(0);
@@ -128,47 +133,73 @@ const moveTiles = direction => {
                 grid[j][i] = row[j];
             } else {
                 grid[i][j] = row[j];
-            };
+            }
         }
-    };
-};
-
-const margeTile = direction => {
-    let isVertical = direction === 'ArrowUp' || direction === 'ArrowDown';
-    let isForward = direction === 'ArrorLeft' || direction === 'ArrowRight';
-
-    for (i = 0; i < 4; i++) {
-        for (let j = isForward ? 3 : 0; isForward ? j > 0 : j < 3; isForward ? j-- : j++) {
-
-            let current = isVertical ? grid[j][i] : grid[i][j];
-            let next = isVertical ? grid[isForward ? j - 1 : j + 1][i] : grid[i][isForward ? j - 1 : j + 1];
-
-            if (current !== 0 && current === next) {
-                let margeTile = current * 2;
-
-                isVertical ? grid[j][i] = margeTile : grid[i][j] = margeTile;
-                isVertical ? grid[isForward ? j - 1 : j + 1][i] = 0 : grid[i][isForward ? j - 1 : j + 1] = 0;
-                score += margeTile;
-                break;
-            };
-        };
-    };
-};
-
-const updateScore = () => {
-    document.getElementById('game-score').textContent = `score ${score}`;
+    }
 }
 
-const formatTime = (timeInSecond) => {
-    let minutes = Math.floor(timeInSecond / 60);
-    let seconds = timeInSecond % 60;
+function mergeTiles(direction) {
+    let isVertical = direction === 'ArrowUp' || direction === 'ArrowDown';
+    let isForward = direction === 'ArrowRight' || direction === 'ArrowDown';
 
+    for (let i = 0; i < 4; i++) {
+        for (let j = isForward ? 3 : 0; isForward ? j > 0 : j < 3; isForward ? j-- : j++) {
+            let current = isVertical ? grid[j][i] : grid[i][j];
+            let next = isVertical ? grid[isForward ? j - 1 : j + 1][i] : grid[i][isForward ? j - 1 : j + 1];
+            if (current !== 0 && current === next) {
+                let mergedTile = current * 2;
+                isVertical ? grid[j][i] = mergedTile : grid[i][j] = mergedTile;
+                isVertical ? grid[isForward ? j - 1 : j + 1][i] = 0 : grid[i][isForward ? j - 1 : j + 1] = 0;
+                score += mergedTile;
+                break; // Prevent double merge in one swipe
+            }
+        }
+    }
+}
+
+function updateScore() {
+    document.getElementById('game-score').textContent = 'Score: ' + score;
+}
+
+
+
+function formatTime(timeInSeconds) {
+    let minutes = Math.floor(timeInSeconds / 60);
+    let seconds = timeInSeconds % 60;
     return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-};
+}
 
-const isGameOver = () => {
+function isGameOver() {
     return isGridFull() && !canMakeMove();
-};
+}
 
-document.getElementById('new-game').addEventListener('click', initGame);
-document.getElementById('tryangan').addEventListener('click', initGame)
+function isGridFull() {
+    return grid.every(row => row.every(cell => cell !== 0));
+}
+
+function canMakeMove() {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            let value = grid[i][j];
+            if (value !== 0) {
+                if (i < 3 && value === grid[i + 1][j]) return true;
+                if (j < 3 && value === grid[i][j + 1]) return true;
+            }
+        }
+    }
+    return false;
+}
+
+function showGameOverMessage() {
+    const gameOverMessage = document.getElementById('game-over');
+    gameOverMessage.style.cssText = 'display: block; ';
+}
+
+function hideGameOverMessage() {
+    const gameOverMessage = document.getElementById('game-over');
+    gameOverMessage.style.cssText = 'display: none; ';
+    initGame()
+
+}
+
+initGame();
