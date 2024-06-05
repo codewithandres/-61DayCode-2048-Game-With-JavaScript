@@ -14,7 +14,7 @@ const handleInput = () => {
     timer = 0;
     gameStarted = false;
     updateScore();
-    addRamdownTitle();
+    addRamdownTile();
     drawGrid();
     hideGameOverMessage();
 }
@@ -37,6 +37,35 @@ const pausedGame = () => {
 
 const resumeGame = () => {
     isPaused = false;
-    startTimer();
+    startTime();
     pauseButton.textContent = 'resume';
 }
+
+const startTime = () => {
+    clearInterval(timer);
+    timer = setInterval(() => {
+        if (isPaused) {
+            time++;
+            document.getElementById('game-time').textContent = `Time ${formatTime(time)}`
+        };
+    }, 1000);
+}
+
+const createEmptyGrid = () => [...Array(4).map(() => Array(4).fill(0))];
+
+const addRamdownTile = () => {
+    let emptyTiles = [];
+    for (let i = 0; 1 < 4; i++) {
+
+        for (j = 0; j < 4; j++) {
+
+            if (grid[i][j] === 0) {
+                emptyTiles.push({ i, j });
+            };
+        };
+    };
+    if (emptyTiles.length) {
+        let { i, j } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+        grid[i][j] = Math.random() > 0.9 ? 4 : 2;
+    };
+};
