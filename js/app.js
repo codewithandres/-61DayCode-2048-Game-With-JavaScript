@@ -1,9 +1,6 @@
 
 let grid, score, timer, time, gameStarted;
 
-document.getElementById('new-game').addEventListener('click', initGame);
-document.getElementById('tryangan').addEventListener('click', initGame)
-
 document.addEventListener('keydown', handleInput);
 
 const initGame = () => {
@@ -158,3 +155,9 @@ const margeTile = direction => {
     };
 };
 
+const updateScore = () => {
+    document.getElementById('game-score').textContent = `score ${score}`;
+}
+
+document.getElementById('new-game').addEventListener('click', initGame);
+document.getElementById('tryangan').addEventListener('click', initGame)
