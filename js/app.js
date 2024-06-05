@@ -166,5 +166,9 @@ const formatTime = (timeInSecond) => {
     return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
 };
 
+const isGameOver = () => {
+    return isGridFull() && !canMakeMove();
+};
+
 document.getElementById('new-game').addEventListener('click', initGame);
 document.getElementById('tryangan').addEventListener('click', initGame)
