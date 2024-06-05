@@ -227,32 +227,32 @@ i {
 
 @keyframes bunceIn {
     0% {
-        transform: scale(0.1);
+        transform: translateX(-50%) scale(0.1);
         opacity: 0;
     }
 
     60% {
-        transform: scale(1.2);
+        transform: translateX(-50%) scale(1.2);
         opacity: 1;
     }
 
     100% {
-        transform: scale(1);
+        transform: translateX(-50%) scale(1);
     }
 }
 
 @keyframes pop {
     0% {
-        transform: scale(1);
+        transform: translateX(-50%) scale(1);
     }
 
     60% {
-        transform: scale(1.2);
+        transform: translateX(-50%) scale(1.2);
         opacity: 1;
     }
 
     100% {
-        transform: scale(0);
+        transform: translateX(-50%) scale(0);
         opacity: 0;
     }
 }
