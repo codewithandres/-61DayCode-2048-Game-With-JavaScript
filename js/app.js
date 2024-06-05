@@ -69,3 +69,21 @@ const addRamdownTile = () => {
         grid[i][j] = Math.random() > 0.9 ? 4 : 2;
     };
 };
+
+const drawGrid = () => {
+    const gridContainer = document.getElementById('grid-container');
+    gridContainer.innerHTML = '';
+
+    grid.map((row, i) => {
+        row.forEach((value, j) => {
+            let tile = document.createElement('div');
+            tile.className = 'tile' + (value ? `title-${value}` : '');
+            tile.textContent = value || '';
+            gridContainer.appendChild(tile);
+        });
+    });
+    if (isGameOver()) {
+        ShowGameOverMessage();
+        clearInterval(timer)
+    }
+};
