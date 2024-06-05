@@ -1,8 +1,258 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+:root {
+    --bg-color: hsl(0, 8%, 97%);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 0 1em;
+}
+
+#game-message {
+    border: none;
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid hsl(0, 0%, 80%);
+}
+
+#game-container {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-color);
+}
+
+.game-info {
+    color: hsl(0, 0%, 27%);
+    background-color: hsl(0, 0%, 100%);
+    padding: 15px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 50%;
+    margin-left: 50px;
+    justify-content: start;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.game-info button {
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    width: 90%;
+    height: 40px;
+    background-color: hsl(219, 88%, 49%);
+    color: hsl(0, 0%, 93%);
+    font-weight: 400;
+    font-size: 1em;
+    transition: background-color 0.6s ease;
+    cursor: pointer;
+
+    &:hover {
+        background-color: hsl(219, 86%, 39%);
+    }
+}
+
+.game-info h1 {
+    font-size: 25px;
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+
+.move {
+    margin-top: 20px;
+    border-top: 2px solid #ccc;
+    padding-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+i {
+
+    /*font-size: 12px;*/
+    &.up {
+        margin-bottom: 40px;
+        transform: translateX(5px);
+    }
+
+    &.down {
+        margin-top: 40px;
+        transform: translateX(-10px);
+    }
+
+    &.left {
+        margin-right: 4px;
+    }
+
+    &.left {
+        margin-left: 4px;
+    }
+}
+
+#game-score,
+#game-time {
+    box-shadow: hsla(0, 0%, 0%, 0.05) 0px 6px 24px 0px, hsla(0, 0%, 0%, 0.08) 0px 0px 0px 1px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.title {
+    width: 100px;
+    color: #333;
+    height: 100px;
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    background-color: hwb(0 87% 13%);
+    border: 1px solid hsl(0, 4%, 81%);
+}
+
+.tile-2 {
+    background-color: #FFCDD2;
+}
+
+.tile-4 {
+    background-color: #E1BEE7;
+}
+
+.tile-8 {
+    background-color: #C5CAE9;
+}
+
+.tile-16 {
+    background-color: #e760ff;
+}
+
+.tile-32 {
+    background-color: #FFEE58;
+}
+
+.tile-64 {
+    background-color: rgb(83, 175, 251);
+}
+
+.tile-128 {
+    background-color: #FF7043;
+}
+
+.tile-256 {
+    background-color: #009688;
+}
+
+.tile-512 {
+    background-color: #9d36b9;
+}
+
+.tile-1024 {
+    background-color: #f96639;
+}
+
+.tile-2048 {
+    background-color: #6f25d6;
+}
+
+.game-over {
+    display: none;
+    width: 460px;
+    height: 150px;
+    background-color: hsl(0, 0%, 100%);
+    z-index: 100;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    animation: bunceIn 1s linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-over h1 {
+    margin-top: 10px;
+    color: hsl(236, 74%, 8%);
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.game-over button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: hsl(204, 89%, 44%);
+    border: 0;
+    outline: 0;
+    color: hsl(0, 0%, 100%);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+@keyframes bunceIn {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
 }
