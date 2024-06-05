@@ -159,5 +159,12 @@ const updateScore = () => {
     document.getElementById('game-score').textContent = `score ${score}`;
 }
 
+const formatTime = (timeInSecond) => {
+    let minutes = Math.floor(timeInSecond / 60);
+    let seconds = timeInSecond % 60;
+
+    return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+};
+
 document.getElementById('new-game').addEventListener('click', initGame);
 document.getElementById('tryangan').addEventListener('click', initGame)
