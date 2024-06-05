@@ -110,3 +110,28 @@ const handleInput = event => {
         updateScore();
     };
 };
+
+const moveTiles = direction => {
+    let isVertical = direction === 'ArrowUp' || direction === 'ArrowDown';
+    let isForward = direction === 'ArrorLeft' || direction === 'ArrowRight';
+
+    for (let i = 0; i < 4; i++) {
+        let row = [];
+        for (let j = 0; j < 4; j++) {
+            let cell = isVertical ? grid[j][i] : grid[i][j];
+            if (cell) row.push(cell);
+        };
+
+        let missing = 4 - row.length;
+        let zeros = Array(missing).fill(0);
+        row = isForward ? zeros.concat(row) : row.concat(zeros);
+
+        for (let j = 0; j < 4; j++) {
+            if (isVertical) {
+                grid[j][i] = row[j];
+            } else {
+                grid[i][j] = row[j];
+            };
+        }
+    };
+};
