@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048 Game With JavaScript | Andres developer</title>
+    <!-- remix icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- custom css -->
     <link rel="stylesheet" href="css/mani.css">
     <!-- custom js -->
@@ -12,7 +14,32 @@
 </head>
 
 <body>
-    
+
+    <div id="game-container">
+        <div id="grid-container"></div>
+    </div>
+
+    <div class="game-over">
+        <h1>game over</h1>
+        <button class="tryangan">Try again</button>
+    </div>
+
+    <div class="game-info">
+        <h1>2048 Game </h1>
+        <div id="game-message" class="game-message">
+            <time datetime="00:00" id="game-time">Time : 00</time>
+            <div id="game-score">Score: 0</div>
+        </div>
+        <button id="new-game">New game</button>
+        <button id="pause-game">pause</button>
+        <div class="move">
+            <i class="ri-arrow-up-s-line up"></i>
+            <i class="ri-arrow-left-s-line left"></i>
+            <i class="ri-arrow-right-s-line rigth"></i>
+            <i class="ri-arrow-down-s-line down"></i>
+        </div>
+    </div>
+
 </body>
 
 </html>
