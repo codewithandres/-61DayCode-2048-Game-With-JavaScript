@@ -6,12 +6,11 @@
 
 body {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f9f8f8;
+    background-color: hsl(244, 35%, 9%);
     height: 100vh;
     overflow: hidden;
 
@@ -35,18 +34,19 @@ body {
 #game-container {
     position: relative;
     width: 420px;
-    background-color: #f9f8f8;
+    background-color: hsl(235, 83%, 9%);
+    border-radius: .5em;
 }
 
 .game-info {
-    color: #444;
-    background-color: #fff;
+    color: hsl(240, 3%, 87%);
+    background-color: hsl(229, 63%, 5%);
     padding: 15px;
     border: none;
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 50%;
+    /*height: 50%;*/
     margin-left: 50px;
     justify-content: start;
     align-items: center;
@@ -61,12 +61,14 @@ body {
     outline: none;
     margin: 10px;
     width: 90%;
-    height: 40px;
-    background-color: #164863;
+    padding: 10px 0;
+    /*height: 40px;*/
+    background-color: hsl(221, 100%, 50%);
     color: #EEEEEE;
-    font-weight: 600;
+    /*font-weight: 600;*/
     letter-spacing: 1px;
     font-size: 17px;
+    cursor: pointer;
     transition: background-color 0.6s ease;
 }
 
@@ -82,13 +84,13 @@ body {
 
 .move {
     margin-top: 20px;
-    border-top: 2px solid #ccc;
+    border-top: 2px solid hsl(0, 0%, 17%);
     width: 100%;
     padding-top: 15px;
 }
 
 i {
-    font-size: 12px;
+    font-size: 1.3em;
 }
 
 .up {
@@ -108,6 +110,7 @@ i {
     border: 1px solid #444;
     padding: 10px;
     border-radius: 5px;
+    background-color: hsla(231, 21%, 87%, 0.158);
 }
 
 #grid-container {
@@ -125,10 +128,10 @@ i {
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    background-color: #ddd;
+    background-color: hsla(0, 0%, 40%, 0.719);
     font-size: 24px;
     font-weight: bold;
-    border: 1px solid #d1cdcd;
+    border: 1px solid hsla(0, 0%, 40%, 0.719);
 }
 
 .tile-2 {
