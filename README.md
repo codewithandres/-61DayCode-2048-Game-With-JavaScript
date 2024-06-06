@@ -37,8 +37,4 @@ Si deseas contribuir a este proyecto, puedes seguir estos pasos:
 
 ## Créditos 🙌
 
-Este proyecto fue desarrollado por [Tu Nombre].
-
-## Licencia 📝
-
-Este proyecto está bajo la [Licencia MIT](LICENSE).
+Este proyecto fue desarrollado por [Andres].
